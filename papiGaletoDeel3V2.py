@@ -1,6 +1,8 @@
 print("Welkom bij Papi Gelato we hebben nu nieuwe smaken zoals: Aarbei!, Chocolade!, Munt! maar ook de OG! Vanille!!. ")
 box = []
 
+LITERS = 9.80
+
 BOLLETJES = 1.10
 HORENTJE = 1.25
 BAKJES = 0.75
@@ -18,6 +20,23 @@ totaal = 0
 
 def sorry():
     print("Sorry, dat snap ik niet... ")
+
+def stapnul():
+    global bizunizu
+    bizunizu = int(input("Bent u 1) particulier of 2) zakelijk? "))
+    if bizunizu == 1:
+        stapeen()
+    elif bizunizu == 2:
+        stapeenzakelijk()
+    else:
+        sorry()
+        stapnul()
+
+def stapeenzakelijk():
+    global aantalliters
+    aantalliters = int(input("Hoeveel liter ijs wilt u? "))
+    stapdrie()
+    
 
 def stapeen():
     global bolletjes, HornOfBak
@@ -52,10 +71,15 @@ def staptwee():
         staptwee()
 
 def stapdrie():
-    global bolletjes, smaken
+    global bolletjes, smaken, bizunizu
     smaken = []
-    for i in range(bolletjes):
-        smaak = input(f"Welke smaak wilt u voor bolletje nummer " + str(i+1) + "? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
+    aantalsmaken = 0
+    if bizunizu == 1:
+        aantalsmaken = bolletjes
+    else:
+        aantalsmaken = aantalliters
+    for i in range(aantalsmaken):
+        smaak = input(f"Welke smaak wilt u " + str(i+1) + "? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
         smaak = smaak.lower()
         if smaak == 'a':
             smaken.append('aardbei')
@@ -68,7 +92,10 @@ def stapdrie():
         else:
             sorry()
             stapdrie()
-    toppings()
+    if bizunizu == 1:
+        toppings()
+    else:
+        stapbon()
 
 def toppings():
     global toppingstotaal, bolletjes, smaken, HornOfBak
@@ -92,17 +119,22 @@ def toppings():
 
 def stapbon():
     global totaal, totaalbakjes, totaalbolletjes, totaalhorentjes, toppingstotaal
-    print('''----["Papi gelato"]----\n''',f"uw totalebollen is: {totaalbolletjes} x € {format(BOLLETJES, '.2f')} = € {format(totaalbolletjes * BOLLETJES, '.2f')}")
-    if totaalhorentjes > 0: 
-        print(f"uw totalehorrentje is: {totaalhorentjes} x € {format(HORENTJE, '.2f')} = € {format(totaalhorentjes * HORENTJE, '.2f')}")
-    if totaalbakjes > 0: 
-        print(f"uw totalebakken is: {totaalbakjes} x € {format(BAKJES, '.2f')} = € {format(totaalbakjes * BAKJES, '.2f')}")
-    if toppingstotaal > 0:
-        print(f"uw toppings koste is: 1 x € {format(toppingstotaal, '.2f')} = € {format(toppingstotaal, '.2f')}")
+    print('''----["Papi gelato"]----\n''')
+    if bizunizu == 1:
+        print(f"uw totalebollen is: {totaalbolletjes} x € {format(BOLLETJES, '.2f')} = € {format(totaalbolletjes * BOLLETJES, '.2f')}")
+        if totaalhorentjes > 0: 
+            print(f"uw totalehorrentje is: {totaalhorentjes} x € {format(HORENTJE, '.2f')} = € {format(totaalhorentjes * HORENTJE, '.2f')}")
+        if totaalbakjes > 0: 
+            print(f"uw totalebakken is: {totaalbakjes} x € {format(BAKJES, '.2f')} = € {format(totaalbakjes * BAKJES, '.2f')}")
+        if toppingstotaal > 0:
+            print(f"uw toppings koste is: 1 x € {format(toppingstotaal, '.2f')} = € {format(toppingstotaal, '.2f')}")
 
-    totaalprijs = (totaalbolletjes * BOLLETJES) + (totaalhorentjes * HORENTJE) + (totaalbakjes * BAKJES) + (toppingstotaal)
-    
-    print("--------------------------- + \n",f"uw totaal prijs = € {format(totaalprijs, '.2f')}")
+        totaalprijs = (totaalbolletjes * BOLLETJES) + (totaalhorentjes * HORENTJE) + (totaalbakjes * BAKJES) + (toppingstotaal)
+        
+        print("--------------------------- + \n",f"uw totaal prijs = € {format(totaalprijs, '.2f')}")
+    else:
+        print(f"Liter {aantalliters} x € {format(LITERS, '.2f')} = € {format(aantalliters * LITERS, '.2f')}" )
+        print(f"--------------------------- + \nTotaal = € {format(aantalliters * LITERS, '.2f')} \n BTW (9%)  € {format(aantalliters * LITERS / 100 * 9, '.2f')}")
             
 def staplaatste():
     #third end order
@@ -135,4 +167,4 @@ def staplaatstev2():
         sorry()
         staplaatstev2()
 
-stapeen()
+stapnul()
