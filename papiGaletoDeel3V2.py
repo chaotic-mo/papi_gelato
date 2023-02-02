@@ -1,9 +1,15 @@
-print("Welkom bij Papi Gelato we hebben nieuwe smaken zoals: Aarbei!, Chocolade!, Munt! maar ook de og Vanille!!. ")
+print("Welkom bij Papi Gelato we hebben nu nieuwe smaken zoals: Aarbei!, Chocolade!, Munt! maar ook de OG! Vanille!!. ")
 box = []
 
 BOLLETJES = 1.10
 HORENTJE = 1.25
 BAKJES = 0.75
+
+SLAGROOM = 0.50
+SPRINKELS = 0.30
+CARAMELSAUSA = 0.60
+CARAMELSAUSB = 0.90
+toppingstotaal = 0
 
 totaalbolletjes = 0
 totaalhorentjes = 0
@@ -33,7 +39,7 @@ def stapeen():
 def staptwee():
     #second middle order
     global HornOfBak
-    HornOfBak = input(f'Wilt u deze {bolletjes} bollen in een A)Horrentje of B) Bakje ')
+    HornOfBak = input(f'Wilt u deze {bolletjes} bollen in een A) Horrentje of B) Bakje? ')
     HornOfBak = HornOfBak.lower()
     if HornOfBak == 'a':
         HornOfBak = 'Horrentje'
@@ -49,7 +55,7 @@ def stapdrie():
     global bolletjes, smaken
     smaken = []
     for i in range(bolletjes):
-        smaak = input(f"Welke smaak wilt u voor bolletje nummer "+str(i+1)+"? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
+        smaak = input(f"Welke smaak wilt u voor bolletje nummer " + str(i+1) + "? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
         smaak = smaak.lower()
         if smaak == 'a':
             smaken.append('aardbei')
@@ -62,12 +68,45 @@ def stapdrie():
         else:
             sorry()
             stapdrie()
+    toppings()
+
+def toppings():
+    global toppingstotaal, bolletjes, smaken, HornOfBak
+    top = input("Wilt u een topping? A) geen, B) slagroom, C) sprinkels of D) Carmelsaus? ")
+    top = top.lower()
+    if top == 'a':
+        staplaatste()
+    elif top == 'b':
+        toppingstotaal += SLAGROOM
+    elif top == 'c':
+        toppingstotaal += SPRINKELS  * bolletjes	
+    elif top == 'd':
+        if HornOfBak == 'Horrentje':
+            toppingstotaal += CARAMELSAUSA
+        else:
+            toppingstotaal += CARAMELSAUSB
+    else:
+        sorry()
+        toppings()
     staplaatste()
 
+def stapbon():
+    global totaal, totaalbakjes, totaalbolletjes, totaalhorentjes, toppingstotaal
+    print('''----["Papi gelato"]----\n''',f"uw totalebollen is: {totaalbolletjes} x € {format(BOLLETJES, '.2f')} = € {format(totaalbolletjes * BOLLETJES, '.2f')}")
+    if totaalhorentjes > 0: 
+        print(f"uw totalehorrentje is: {totaalhorentjes} x € {format(HORENTJE, '.2f')} = € {format(totaalhorentjes * HORENTJE, '.2f')}")
+    if totaalbakjes > 0: 
+        print(f"uw totalebakken is: {totaalbakjes} x € {format(BAKJES, '.2f')} = € {format(totaalbakjes * BAKJES, '.2f')}")
+    if toppingstotaal > 0:
+        print(f"uw toppings koste is: 1 x € {format(toppingstotaal, '.2f')} = € {format(toppingstotaal, '.2f')}")
 
+    totaalprijs = (totaalbolletjes * BOLLETJES) + (totaalhorentjes * HORENTJE) + (totaalbakjes * BAKJES) + (toppingstotaal)
+    
+    print("--------------------------- + \n",f"uw totaal prijs = € {format(totaalprijs, '.2f')}")
+            
 def staplaatste():
     #third end order
-    global HornOfBak, bolletjes, smaken, totaal, totaalbakjes, totaalbolletjes, totaalhorentjes
+    global HornOfBak, bolletjes, smaken, totaal, totaalbakjes, totaalbolletjes, totaalhorentjes, toppingstotaal
 
     smaken_str = ', '.join(smaken)
     bericht = f'Hier is uw {HornOfBak} met {bolletjes} bollen en de smaken {smaken_str}. '
@@ -83,27 +122,14 @@ def staplaatste():
 
     staplaatstev2()
 
-def stapbon():
-    global totaal, totaalbakjes, totaalbolletjes, totaalhorentjes
-    print('''----["Papig gelato"]----\n''',f"uw totalebollen is: {totaalbolletjes} x € {format(BOLLETJES, '.2f')} = € {format(totaalbolletjes * BOLLETJES, '.2f')}")
-    if totaalhorentjes > 0: 
-        print(f"uw totalehorrentje is: {totaalhorentjes} x € {format(HORENTJE, '.2f')} = € {format(totaalhorentjes * HORENTJE, '.2f')}")
-    if totaalbakjes > 0: 
-        print(f"uw totalebakken is: {totaalbakjes} x € {format(BAKJES, '.2f')} = € {format(totaalbakjes * BAKJES, '.2f')}")
-    totaalprijs = (totaalbolletjes * BOLLETJES) + (totaalhorentjes * HORENTJE) + (totaalbakjes * BAKJES)
-
-    print("--------------------------- + \n",f"uw totaal prijs = {format(totaalprijs, '.2f')}")
-
-    
-
 def staplaatstev2():
     herhalen = input('wilt u nog meer bestellen?(Y/N) ')
     herhalen = herhalen.lower()
     if herhalen == 'y':
-        stapeen()
-    elif herhalen == 'n':
         for i in box:
             print(i)
+        stapeen()
+    elif herhalen == 'n':
         stapbon() 
     else:
         sorry()
