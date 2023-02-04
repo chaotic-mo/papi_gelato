@@ -19,7 +19,7 @@ totaalbakjes = 0
 totaal = 0
 
 def sorry():
-    print("Sorry, dat snap ik niet... ")
+    print("Sorry, dat is geen optie die we aanbieden... ")
 
 def stapnul():
     global bizunizu
