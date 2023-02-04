@@ -3,7 +3,7 @@ box = []
 
 LITERS = 9.80
 
-BOLLETJES = 1.10
+BOLLETJES = 0.95
 HORENTJE = 1.25
 BAKJES = 0.75
 
