@@ -1,4 +1,4 @@
-print("Welkom bij Papi Gelato we hebben nu nieuwe smaken zoals: Aarbei!, Chocolade!, Munt! maar ook de OG! Vanille!!. ")
+print("Welkom bij Papi Gelato we hebben nu nieuwe smaken zoals: Aarbei!, Chocolade! maar ook de OG! Vanille!!. ")
 box = []
 
 LITERS = 9.80
@@ -79,14 +79,12 @@ def stapdrie():
     else:
         aantalsmaken = aantalliters
     for i in range(aantalsmaken):
-        smaak = input(f"Welke smaak wilt u " + str(i+1) + "? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
+        smaak = input(f"Welke smaak wilt u " + str(i+1) + "? A) Aardbei, C) Chocolade of V) Vanille? ")
         smaak = smaak.lower()
         if smaak == 'a':
             smaken.append('aardbei')
         elif smaak == 'c':
             smaken.append('chocolade')
-        elif smaak == 'm':
-            smaken.append('munt')
         elif smaak == 'v':
             smaken.append('vanille')
         else:
