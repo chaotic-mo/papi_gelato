@@ -3,6 +3,8 @@ box = []
 
 LITERS = 9.80
 
+BTW = 6
+
 BOLLETJES = 0.95
 HORENTJE = 1.25
 BAKJES = 0.75
@@ -132,7 +134,7 @@ def stapbon():
         print("--------------------------- + \n",f"uw totaal prijs = € {format(totaalprijs, '.2f')}")
     else:
         print(f"Liter {aantalliters} x € {format(LITERS, '.2f')} = € {format(aantalliters * LITERS, '.2f')}" )
-        print(f"--------------------------- + \nTotaal = € {format(aantalliters * LITERS, '.2f')} \n BTW (9%)  € {format(aantalliters * LITERS / 100 * 9, '.2f')}")
+        print(f"--------------------------- + \nTotaal = € {format(aantalliters * LITERS, '.2f')} \n BTW ({BTW}%)  € {format(aantalliters * LITERS / 100 * BTW, '.2f')}")
             
 def staplaatste():
     #third end order
